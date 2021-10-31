@@ -45,6 +45,12 @@ namespace pat::component
 
         inline std::unique_ptr<Use> clone() const { return std::unique_ptr<Use>(clone_impl()); }
 
+        template<class Archive>
+        void save(Archive& archive)
+        {
+            archive(m_destroyed);
+        }
+
     protected:
         /**
          * @brief The action it should perform

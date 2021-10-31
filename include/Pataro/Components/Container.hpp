@@ -68,6 +68,11 @@ namespace pat::component
         std::size_t capacity() const;
 
         inline std::unique_ptr<Container> clone() const { return std::unique_ptr<Container>(clone_impl()); }
+        template<class Archive>
+        void save(Archive& archive)
+        {
+            archive(m_max_size, m_inventory);
+        }
 
     protected:
         virtual Container* clone_impl() const;

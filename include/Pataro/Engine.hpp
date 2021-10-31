@@ -95,6 +95,13 @@ namespace pat
         inline const TCOD_key_t&   lastkey() { return m_lastkey; }
         inline const TCOD_mouse_t& mouse()   { return m_mouse; }
 
+        template<class Archive>
+        void save(Archive& archive)
+        {
+            m_player->save(archive);
+            m_map->save(archive);
+        }
+
     private:
         unsigned m_width, m_height;
         bool m_show_debug;

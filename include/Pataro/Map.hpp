@@ -2,7 +2,22 @@
 #define PATARO_MAP_HPP
 
 #include <Pataro/Map/Level.hpp>
+#include <cereal/cereal.hpp>
+#include <cereal/archives/binary.hpp>
+#include <cereal/archives/portable_binary.hpp>
+#include <cereal/archives/xml.hpp>
 
+#include <cereal/types/string.hpp>
+#include <cereal/types/utility.hpp>
+#include <cereal/types/memory.hpp>
+#include <cereal/types/complex.hpp>
+#include <cereal/types/base_class.hpp>
+#include <cereal/types/array.hpp>
+#include <cereal/types/vector.hpp>
+#include <cereal/types/map.hpp>
+#include <cereal/types/utility.hpp>
+#include <cereal/types/bitset.hpp>
+#include <cereal/types/polymorphic.hpp>
 #include <vector>
 
 namespace pat
@@ -99,6 +114,13 @@ namespace pat
          * @return const map::Level& 
          */
         inline map::Level& current_level() { return m_levels[m_current]; }
+
+        template<class Archive>
+        void save(Archive& archive)
+        {
+            archive(m_levels);
+            archive(m_current);
+        }
 
     private:
         std::vector<map::Level> m_levels;

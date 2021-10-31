@@ -25,6 +25,12 @@ namespace pat::component
 
         inline std::unique_ptr<Attacker> clone() const { return std::unique_ptr<Attacker>(clone_impl()); }
 
+        template<class Archive>
+        void save(Archive& archive)
+        {
+            archive(m_power);
+        }
+
     protected:
         virtual Attacker* clone_impl() const;
 

@@ -8,6 +8,8 @@
 
 #include <libtcod.hpp>
 
+#include <cereal/types/vector.hpp>
+
 #include <vector>
 #include <memory>
 

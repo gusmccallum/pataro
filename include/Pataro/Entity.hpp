@@ -11,6 +11,11 @@
 
 #include <libtcod.hpp>
 
+#include <cereal/types/vector.hpp>
+#include <cereal/types/complex.hpp>
+#include <cereal/access.hpp>
+#include <cereal/cereal.hpp>
+
 #include <string>
 #include <utility>
 #include <memory>
@@ -113,6 +118,16 @@ namespace pat
 
         inline bool is_blocking() const { return m_blocks; }
         inline void set_blocking(bool value) { m_blocks = value; }
+
+        template<class Archive>
+        void save(Archive& archive)
+        {
+            m_attacker->save(archive);
+            m_destructible->save(archive);
+            m_container->save(archive);
+            m_use->save(archive);
+            archive(m_id, m_x, m_y, m_ch, m_name, m_color, m_energy, m_speed, m_blocks); // serialize things by passing them to the archive
+        }
 
         #define GET_CMPNT1(Type, name) inline component::Type* name() { return m_##name.get(); }
         #define GET_CMPNT2(Type, name) inline std::unique_ptr<component::Type>&& uptr_##name() { return std::move(m_##name); }

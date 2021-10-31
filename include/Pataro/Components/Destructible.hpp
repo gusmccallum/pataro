@@ -63,6 +63,12 @@ namespace pat::component
 
         inline std::unique_ptr<Destructible> clone() const { return std::unique_ptr<Destructible>(clone_impl()); }
 
+        template<class Archive>
+        void save(Archive& archive)
+        {
+            archive(m_max_hp, m_hp, m_defense, m_corpse_name);
+        }
+
     protected:
         virtual Destructible* clone_impl() const;
 
